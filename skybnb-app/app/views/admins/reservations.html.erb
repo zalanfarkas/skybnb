@@ -1,0 +1,80 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		Search and Manage Reservations made on SkyBnB
+	</div>
+	<div class="panel-body">
+		<div class="container">
+			
+			<%= form_tag("/manage_reservations", method: "get") do %>
+			
+			<div class="row">
+					<div class="form-group">
+						<label>Email of Guest who made the reservation</label> <br>
+						<%= text_field_tag :email%>
+					</div>
+			</div>
+			
+			<div class="row">
+					<div class="form-group">
+						<label>Start Date of the Reservation</label> <br>
+						<%= text_field_tag :start_date %>
+					</div>
+			</div>
+			
+				
+			<div class="actions">
+					<%= submit_tag "Search", class: "btn btn-primary" %>
+				</div>
+
+			<% end %>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+<% if @results %>
+		<div class="col-md-9">
+		<div class="panel panel-default">
+			<div class="panel-heading panna" id="panna">
+				Reservations of the given guest
+			</div>
+			<div class="panel-body">
+				
+				<% @results.each do |trip| %>
+					<div class="row">
+						<div class="col-md-2">
+							<%= trip.start_date.strftime('%v') %>
+						</div>	
+						<div class="col-md-3">
+							<%= link_to room_path(trip.room) do %>
+								<%= image_tag trip.room.photos[0].image.url(:thumb) if trip.room.photos.length > 0 %>
+							<% end %>
+						</div>	
+						<div class="col-md-2">
+							<%= link_to user_path(trip.room.user) do %>
+								<%= image_tag avatar_url(trip.room.user), class: "img-circle avatar-medium" %>
+							<% end %>	
+						</div>	
+						<div class="col-md-3 right">
+							<%= link_to "Delete", room_reservation_path(trip.room.id,trip.id), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-primary" %>
+						</div>	
+					</div>
+					<hr>
+				<% end %>
+
+			</div>
+		</div>
+	</div>
+<% end %>
+
+
+  <script>
+    $( "#start_date" ).datepicker({
+      dateFormat: 'yy-mm-dd'
+  } );
+  </script>
+  
+  

@@ -1,0 +1,9 @@
+Hi <%= @message_recipient.fullname %>
+
+
+  <%= @message_sender.fullname %> sent you a new message on SkyBnB.
+  
+  The content of the message is the following:
+  <%= @new_message.content %>
+  Check it out at <%=link_to "SkyBnB's website", root_url %>
+

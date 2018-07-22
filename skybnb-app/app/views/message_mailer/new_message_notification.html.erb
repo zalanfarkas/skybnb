@@ -1,0 +1,15 @@
+<h1> Hi <%= @message_recipient.fullname %></h1>
+
+<p>
+  <%= @message_sender.fullname %> sent you a new message on SkyBnB.
+</p>
+<p>
+  The content of the message is the following:
+</p>
+<p>
+  <%= @new_message.content %>
+</p>
+<p>
+  Check it out at <%=link_to "SkyBnB's website", root_url %>
+</p>
+

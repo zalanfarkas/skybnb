@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <title>SkyBnB</title>
+	  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+	  <%= csrf_meta_tags %>
+	</head>
+	<body>
+		<% if current_admin %>
+			<%= render 'shared/admin_navbar' %>
+		<% else %>
+	  	<%= render 'shared/navbar' %>
+	  <% end %>
+		<%= render 'shared/message' %>
+
+		<div class="container">
+			<%= yield %>	
+		</div>
+		<%= debug(params) if Rails.env.development? %>
+	</body>
+</html>

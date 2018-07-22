@@ -1,0 +1,4 @@
+production:
+  server: "http://messaging-skybnb.herokuapp.com/.herokuapp.com/faye" 
+  secret_token: "a4b5a895b6e541379034390009f1c22470f92141586126529574c74e2fa861b1"
+  signature_expiration: 3600 # one day

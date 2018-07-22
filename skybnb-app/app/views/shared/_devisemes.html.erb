@@ -1,0 +1,14 @@
+<% unless resource.errors.empty? %>
+	<script type="text/javascript">
+		<% resource.errors.full_messages << @recaptcha_error if @recaptcha_error %>
+		<% resource.errors.full_messages.each do |msg| %>
+			toastr.error('<%= msg %>')
+		<% end %>
+	</script>
+<% end %>
+
+<% if resource.errors.full_messages.empty? && @recaptcha_error %>
+	<script type="text/javascript">
+			toastr.error('<%= @recaptcha_error  %>')
+	</script>
+<% end %>

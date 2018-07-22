@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+    Profile Images
+	</div>
+	<div class="panel-body">
+		<div class="container">
+			
+			<%= form_for @user_photo, :html => { multipart: true } do |f| %>
+
+				<div class="row">
+					<div class="col-md-5">
+						<div class="form-group">							
+							<span class="btn btn-default btn-file">
+							    <i class="fa fa-cloud-upload fa-lg"></i> Upload a few Photos of<br> You one by one
+							    <%= f.file_field :image, type: :file %>
+							</span>
+						</div>		
+					</div>
+				</div>
+
+				<div id="photos"><%= render 'list' %></div>
+				
+				<div class="actions">
+					<%= submit_tag "Upload", class: "btn btn-primary" %>
+				</div>
+
+			<% end %>
+
+		</div>
+	</div>
+</div>

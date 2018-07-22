@@ -1,0 +1,93 @@
+<div class="row">
+	<div class="col-md-3">
+		<div class="center">
+			<%= image_tag avatar_url(@user), class: "avatar-full" %>
+			
+			<% if current_user != @user && current_user != nil %>
+				<div class="row-space-2">
+					<%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: 'post', class: "btn btn-primary wide" %>
+				</div>
+			<% end %>
+			
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">Verification</div>	
+			<div class="panel-body">
+				Email Address: <%= @user.email %><br>
+				Phone Number: <%= @user.phone_number %>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-9">
+		<h2><bold><%= @user.fullname %></bold></h2>
+	
+		<div class="description row-space-3">
+				<h4>A few words about myself:</h4>
+			<%= @user.description %>
+		</div>
+		<hr>
+		<% if @user.user_photos  %>
+			<div class="row">
+				<% @user_photos.each do |photo| %>		
+					<div class="col-md-4">
+						<div class="panel panel-default">
+					  	<div class="panel-heading preview">
+					  		<%= image_tag photo.image.url(), class: "default-pic" %>
+					  	</div>
+						</div>
+					</div>
+				<% end %>			
+			</div>
+		<% end %>
+		<hr>
+
+		<% if @user.user_type == "host" %>
+		<h4>Listings (<%= @rooms.length %>)</h4><br>
+			<div class="row">
+				
+				<% @rooms.each do |room| %>
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading preview">
+								<%= image_tag room.show_first_photo(:medium), class: 'default-pic' %>
+							</div>
+							<div class="panel-body hide-text-overflowed">
+								<%= link_to room.listing_name, room %><br>
+								<% if room.reviews.count > 0 %>
+									Reviews(<%= room.reviews.length%>) &nbsp;&nbsp;&nbsp;&nbsp; Rating: <%= room.average_rating %> / 5
+								<% else %>
+									<br>
+								<% end %>
+							</div>
+						</div>
+					</div>
+				<% end %>
+	
+			</div>
+			<hr>
+			<h4>Reviews (<%= @number_of_reviews %>)
+			</h4><br>
+	
+			<% @rooms.each do |room| %>
+				<% if !room.reviews.blank? %>
+	
+					<% room.reviews.each do |review| %>
+						<div class="row">
+							<div class="col-md-2 text-center">
+								<%= image_tag avatar_url(review.user), class: "img-circle avatar-medium" %><br>
+								<%= review.user.fullname %>
+							</div>
+							<div class="col-md-10">
+								<%= link_to room.listing_name, room %><br>
+								<%= review.comment %><br>
+								<%= review.created_at.strftime("%v") %>
+							</div>
+						</div>
+					<% end %>
+	
+				<% end %>
+			<% end %>
+		<% end %>
+	</div>
+</div>
